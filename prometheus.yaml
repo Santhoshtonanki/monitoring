@@ -1,0 +1,40 @@
+# my global config
+
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+        # - "localhost:9093"
+
+        # Load rules once and periodically evaluate them
+rule_files:
+  - "/opt/prometheus/alert_rules/*.yml"
+
+scrape_configs:
+
+# Prometheus itself
+- job_name: "prometheus"
+  static_configs:
+  - targets: [ "localhost:9090" ]
+    labels:
+      app: "prometheus"
+  scrape_native_histograms: true
+
+- job_name: "node-1"
+  static_configs:
+  - targets: [ "172.31.19.113:9100" ]
+    labels:
+      app: "node-1"
+  scrape_native_histograms: true
+
+- job_name: "node-2"
+  static_configs:
+  - targets: [ "172.31.17.118:9100" ]
+    labels:
+      app: "node-2"
+  scrape_native_histograms: true

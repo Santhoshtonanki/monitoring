@@ -1,0 +1,13 @@
+[Unit]
+Description=Grafana Server
+After=network.target
+
+[Service]
+Type=simple
+User=grafana
+Group=grafana
+ExecStart=//opt/prometheus/ --config=/usr/local/grafana/conf/grafana.ini --homepath=/usr/local/grafana
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

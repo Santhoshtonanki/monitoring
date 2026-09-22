@@ -1,0 +1,20 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/prometheus/prometheus --config.file /opt/prometheus/prometheus.yml --storage.tsdb.path /var/lib/prometheus/
+Restart=on-failure
+User=santhosh
+Group=devops
+
+[Install]
+WantedBy=multi-user.target
+
+
+## here user and group is available so that we need to create user and group along with the name
+## give ownership and permission to access the above "ExecStat" paths 
+## if you don't want continue these hectic, simply remove user and group blocks and relax
+## for a practice I am avoiding those steps and user group setup

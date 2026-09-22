@@ -1,0 +1,13 @@
+[Unit]
+Description=My Simple Custom Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/node_exporter/node_exporter
+Restart=on-failure
+User=nobody
+
+[Install]
+WantedBy=multi-user.target
+

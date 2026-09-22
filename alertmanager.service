@@ -1,0 +1,14 @@
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/alertmanager-0.34.1.linux-amd64/alertmanager --config.file /opt/alertmanager-0.34.1.linux-amd64/alertmanager.yml 
+## --storage.tsdb.path /var/lib/alertmanager/
+## this will prometheus server flag. it will not related and not supported to alertmanager 
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

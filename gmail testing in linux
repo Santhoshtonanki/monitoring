@@ -1,0 +1,7 @@
+
+{
+echo "To: santhoshtonanki1996@gmail.com"
+echo "Subject: testing mails alert"
+echo "Content-Type: text/html"
+echo "ignore this message. this is testing for a gmail alertmanager is properly working or not"
+} | msmtp "$santhoshtonanki1996@gmail.com"

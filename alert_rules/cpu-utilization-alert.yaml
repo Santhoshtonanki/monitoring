@@ -1,0 +1,23 @@
+groups:
+  - name: cpu-utilization-alerts
+    rules:
+
+      - alert: LowCPUUtilization
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) < 10
+        for: 5m
+        labels:
+          severity: warning
+          team: monitoring
+        annotations:
+          summary: "Low CPU utilization on {{ $labels.instance }}"
+          description: "CPU utilization is below 10% on {{ $labels.instance }}"
+
+      - alert: HighCPUUtilization
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 75
+        for: 5m
+        labels:
+          severity: critical
+          team: monitoring
+        annotations:
+          summary: "High CPU utilization on {{ $labels.instance }}"
+          description: "CPU utilization is above 75% on {{ $labels.instance }}"

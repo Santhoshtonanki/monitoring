@@ -1,0 +1,23 @@
+groups:
+  - name: disk-utilization-alerts
+    rules:
+
+      - alert: LowDiskUtilization
+        expr: (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"})) * 100 < 10
+        for: 5m
+        labels:
+          severity: warning
+          team: monitoring
+        annotations:
+          summary: "Low disk utilization on {{ $labels.instance }}"
+          description: "Disk utilization is below 10% on {{ $labels.instance }}"
+
+      - alert: HighDiskUtilization
+        expr: (1 - (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"})) * 100 > 75
+        for: 5m
+        labels:
+          severity: critical
+          team: monitoring
+        annotations:
+          summary: "High disk utilization on {{ $labels.instance }}"
+          description: "Disk utilization is above 75% on {{ $labels.instance }}"
